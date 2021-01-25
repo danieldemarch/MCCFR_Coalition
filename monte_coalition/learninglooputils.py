@@ -26,6 +26,7 @@ def handleblackboxvoting(thepower, thepolicy, thesalience, policies, pies, there
             
     return votes
 
+
 def creationofcoalitions(playerpies, playerpieprobs, thepossiblepolicies, playerpolicyprobs, thereversion, thepolicy, thesalience):    
     
     piebucket = checkbucket_pie(playerpieprobs)
@@ -44,8 +45,41 @@ def creationofcoalitions(playerpies, playerpieprobs, thepossiblepolicies, player
     return playerpie, playerpolicy, possiblereward, piebucket, policybucket
 
 
-#@jit(nopython=True, fastmath=True)
-#@jit()
+def conglomerate(pies, policies):
+    #print('fuck you')
+    #check if pies are the same
+    binarypies = np.zeros((len(pies), len(pies[0])))
+    for i in range(len(pies)):
+        for j in range(len(pies[0])):
+            if(pies[i][j] > 0): 
+                binarypies[i, j] = 1
+    #print(binarypies)
+    uniquepies = np.unique(binarypies, axis = 0)
+    #print(uniquepies)
+    
+    if(len(uniquepies) == len(binarypies)):
+        playerindex = len(policies)-1
+        return pies, policies, playerindex
+    else:
+        finalpies = np.zeros(uniquepies.shape)
+        finalpols = np.zeros((len(uniquepies), len(policies[0])))
+        
+        for i in range(len(uniquepies)):
+            indices = np.where((binarypies == uniquepies[i]).all(axis=1))[0]
+            #print(indices)
+            for j in range(len(indices)):
+                finalpies[i]+=pies[indices[j]]
+                finalpols[i]+=policies[indices[j]]
+            finalpies[i] = finalpies[i]/len(indices)
+            finalpols[i] = np.rint(finalpols[i]/len(indices))
+            if(len(policies)-1 in indices):
+                playerindex = i
+            #print(finalpies)
+            #print(finalpols)
+        return finalpies, finalpols, playerindex
+            
+        
+    
 def playercreatespath(coalresults, pieresults, polresults, playerreward, aipies, aipolicies, playerpies, playerpieprobs, thepossiblepolicies, playerpolicyprobs, thereversion, thepolicy, thesalience, thepower):
     playerpie, playerpolicy, possiblereward, piebucket, policybucket = creationofcoalitions(playerpies, playerpieprobs, thepossiblepolicies, playerpolicyprobs, thereversion, thepolicy, thesalience)
     
@@ -58,17 +92,28 @@ def playercreatespath(coalresults, pieresults, polresults, playerreward, aipies,
     fullpies[len(fullpies)-1] = playerpie
     fullpolicies[len(fullpolicies)-1] = playerpolicy
     
+    #print(fullpies)
+    #print(fullpolicies)
+    
+    firstlen = len(fullpies)
+    
+    fullpies, fullpolicies, playervote = conglomerate(fullpies, fullpolicies)
+    # if(len(fullpies) != firstlen):
+    #     print(firstlen, len(fullpies))
+    #print(fullpies)
+    #print(fullpolicies)
+    
     votes = handleblackboxvoting(thepower, thepolicy, thesalience, fullpolicies, fullpies, thereversion)
                     
     #player auto-votes for their own        
-    votes[len(votes)-1]+=thepower[0]
+    votes[playervote]+=thepower[0]
         
     #calcs power to beat and checks if any votes exceed this value
     powtobeat = (np.sum(thepower))/2
         
     awin = 0
     windex = -1
-        
+    
     for j in range(len(votes)):
         if(votes[j] > powtobeat):
             awin = 1
@@ -80,10 +125,8 @@ def playercreatespath(coalresults, pieresults, polresults, playerreward, aipies,
     else:
         pieval = fullpies[windex, 0]
         playerreward = calculatereward(thepolicy[0], thesalience[0], fullpolicies[windex], pieval)
-        
+
     return piebucket, policybucket, playerreward
-
-
 
 
 

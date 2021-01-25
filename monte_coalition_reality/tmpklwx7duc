@@ -12,9 +12,9 @@ numpolicies = 5
 thereversion = 0.1
 nbiggest = 2
 numdivisions = 10
-learningrate = 0.01
+learningrate = 0.1
 numiter = 5
-num_traversals = 100
+num_traversals = 10
  
 thepower =  np.array([298,245,47,43,36])
 
@@ -52,8 +52,7 @@ for z in range(numiter):
     playerchoiceprobs = []
     
     for i in range(numactors):
-        #playerproposeprobs.append(np.array([1-(thepower[i]/np.sum(thepower)), (thepower[i]/np.sum(thepower))]))
-
+        
         playerproposeprobs.append(returnflatprobability(np.zeros((2))))
         playerpieprobs.append(returnflatprobability(allplayerpies[i]))
         policyprobs = []
@@ -72,11 +71,13 @@ for z in range(numiter):
     
     while((np.any(choicetoconverge == -1) or np.any(pcpieconverge == -1) or np.any(pcpoliconverge == -1)) and i < 20000):
         
-        if(i%100 == 0):
-            print(i)
-            for j in range(numactors):
-                print(playerproposeprobs[j][1], np.max(playerpieprobs[j]), np.max(playerpolicyprobs[j]), allplayerpies[j][np.argmax(playerpieprobs[j])])
-            
+        # if(i%100 == 0):
+        #     print(i)
+        #     for j in range(numactors):
+        #         print(playerproposeprobs[j][1], np.max(playerpieprobs[j]), np.max(playerpolicyprobs[j]), allplayerpies[j][np.argmax(playerpieprobs[j])])
+        #     if(i > 0):
+        #         print(avgrew)
+        #         print(wins)
                 
                 # if(i>0):
                 #     print(poser_pies)
@@ -85,6 +86,12 @@ for z in range(numiter):
         
         i+=1
         
+        bestreward = np.zeros((numactors))
+        bestpie = np.zeros((numactors)).astype(int)
+        bestpolicy = np.zeros((numactors)).astype(int)
+        bestputin = np.zeros((numactors)).astype(int)
+        avgrew = np.zeros((numactors))
+        wins = np.zeros((numactors))
         
         for j in range(num_traversals):
             
@@ -124,7 +131,10 @@ for z in range(numiter):
                 
                 for k in range(numactors):
                     rewardvec[k] = calculatereward(thepolicy[k], thesalience[k], poser_pols[windex], poser_pies[windex][k])
-            
+                    
+                wins+=(poser_pies[windex] > 0)
+                    
+            avgrew+=rewardvec       
             poserlist = np.where(posers==1)[0]
             mainstreamlist = np.where(posers==0)[0]
             
@@ -162,14 +172,16 @@ for z in range(numiter):
                 pcpoliconverge[j] == 1
 
                 
-            if(bestreward[j] > thereversion ):
+            if(bestreward[j] > thereversion  or i > 10000):
                 if(bestpie[j] == -1):
                     
-                    #if(i > 2000):
-                        playerproposeprobs[j] = updateprob(playerproposeprobs[j], learningrate/100*(bestreward[j]/thereversion), 0)
+                    if(bestpie[j] != bestputin[j]):
+                        print("fuck", bestpie[j], bestputin[j])
+                    
+                    playerproposeprobs[j] = updateprob(playerproposeprobs[j], learningrate/100*(bestreward[j]/thereversion), 0)
                     
                 else:
-                    #if(i > 2000):
+                    
                     playerproposeprobs[j] = updateprob(playerproposeprobs[j], learningrate/100*(bestreward[j]/thereversion), 1)    
                     playerpieprobs[j] = updateprob(playerpieprobs[j], learningrate*(bestreward[j]/thereversion), bestpie[j])
                     playerpolicyprobs[j][bestpie[j]] = updateprob(playerpolicyprobs[j][bestpie[j]], learningrate*(bestreward[j]/thereversion),  bestpolicy[j])

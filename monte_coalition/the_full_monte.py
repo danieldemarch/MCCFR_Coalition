@@ -3,73 +3,94 @@ from calculationutils import *
 from aiproposalgeneration import *
 from playertreegeneration import *
 from learninglooputils import *
+from getcasedata import *
 import numpy as np
 
 megalist = []
 megalist2 = []
 
-numactors = 10
-numpolicies = 5
-thereversion = 0.1
-nbiggest = 2
-numdivisions = 12
-learningrate = 0.2
-numiter = 1
+case = 'AUT_1999_1_PPMD'
+
+if(case=='AUT_1999_1_PPMD'):
+    numactors, numpolicies, thepower, thepolicy, thesalience, learningrate, thereversion, nbiggest, numdivisions = AUT_1999_1_PPMD()
+
+if(case=='BEL_2003_1_PPMD'):
+    numactors, numpolicies, thepower, thepolicy, thesalience, learningrate, thereversion, nbiggest, numdivisions = BEL_2003_1_PPMD()
     
-thepower = np.array([31,30,24, 21, 15, 10, 10, 5, 2, 2])
+if(case=='BUL_2001_1_PPMD'):
+    numactors, numpolicies, thepower, thepolicy, thesalience, learningrate, thereversion, nbiggest, numdivisions = BUL_2001_1_PPMD()
     
-thepolicy = np.array([[.8545455, .3454545, .8545455, .6, .8454545],
-                              [.3454545, .3, .4545454, .55, .5181818],
-                              [.55, .47, .8100001, .625, 1],
-                              [.6090909, .5909091, .7, .575, .7],
-                              [.1272727, .3909091, .5363637, .475, .6],
-                              [.5909091, .0909091, .3818182, .34, .3363636],
-                              [.2818182, .1363636, .1545455, .45, .2636364],
-                              [.44, .6363636, .4666666, .45, .49],
-                              [.6625, .96, .65, .475, .8125],
-                              [.4166667, .28, .1625, .5, .35]])
-    
-thepolicy = np.rint(thepolicy)
+if(case=='cz_2006_1_CHES'):
+    numactors, numpolicies, thepower, thepolicy, thesalience, learningrate, thereversion, nbiggest, numdivisions = cz_2006_1_CHES()
+
+if(case=='DEU_2002_1_PPMD'):
+    numactors, numpolicies, thepower, thepolicy, thesalience, learningrate, thereversion, nbiggest, numdivisions = DEU_2002_1_PPMD()
         
-thesalience = np.array([[.2609344, .2017893, .1426441, .1093439, .2852882],
-                                [.2640827, .1989664, .1844961, .1136951, .2387597],
-                                [.1768612, .2268438, .099965, .1153443, .3809857],
-                                [.2222222, .2222222, .1647509, .1264368, .2643678],
-                                [.3234515, .1719018, .1490058, .1085094, .2471315],
-                                [.2023121, .2365496, .1991996, .156514, .2054246],
-                                [.1973075, .2179217, .2856542, .101809, .1973075],
-                                [.1901798, .2662517, .197787, .1521439, .1936376],
-                                [.1544652, .3311916, .1431075, .1577103, .2135255],
-                                [.0973631, .2068966, .4198783, .1460446, .1298175]])
+if(case=='DNK_2005_1_CHES'):
+    numactors, numpolicies, thepower, thepolicy, thesalience, learningrate, thereversion, nbiggest, numdivisions = DNK_2005_1_CHES()
+
+if(case=='est_2007_1_CHES'):
+    numactors, numpolicies, thepower, thepolicy, thesalience, learningrate, thereversion, nbiggest, numdivisions = est_2007_1_CHES()
+
+if(case=='FIN_1999_1_PPMD'):
+    numactors, numpolicies, thepower, thepolicy, thesalience, learningrate, thereversion, nbiggest, numdivisions = FIN_1999_1_PPMD()
+
+if(case=='hun_2002_1_PPMD'):
+    numactors, numpolicies, thepower, thepolicy, thesalience, learningrate, thereversion, nbiggest, numdivisions = hun_2002_1_PPMD()
+
+if(case=='lat_2006_1_CHES'):
+    numactors, numpolicies, thepower, thepolicy, thesalience, learningrate, thereversion, nbiggest, numdivisions = lat_2006_1_CHES()
+
+if(case=='LUX_2009_1_JOP'):
+    numactors, numpolicies, thepower, thepolicy, thesalience, learningrate, thereversion, nbiggest, numdivisions = LUX_2009_1_JOP()
+
+if(case=='NLD_2010_1_CHES'):
+    numactors, numpolicies, thepower, thepolicy, thesalience, learningrate, thereversion, nbiggest, numdivisions = NLD_2010_1_CHES()
+
+if(case=='pol_2007_1_CHES'):
+    numactors, numpolicies, thepower, thepolicy, thesalience, learningrate, thereversion, nbiggest, numdivisions = pol_2007_1_CHES()
+
+if(case=='PRT_1999_1_PPMD'):
+    numactors, numpolicies, thepower, thepolicy, thesalience, learningrate, thereversion, nbiggest, numdivisions = PRT_1999_1_PPMD()
+
+if(case=='ROM_2008_1_CHES'):
+    numactors, numpolicies, thepower, thepolicy, thesalience, learningrate, thereversion, nbiggest, numdivisions = ROM_2008_1_CHES()
+
+if(case=='slovak_2010_1_CH'):
+    numactors, numpolicies, thepower, thepolicy, thesalience, learningrate, thereversion, nbiggest, numdivisions = slovak_2010_1_CH()
+
+if(case=='sloven_2000_1_PP'):
+    numactors, numpolicies, thepower, thepolicy, thesalience, learningrate, thereversion, nbiggest, numdivisions = sloven_2000_1_PP()
+
+if(case=='SPA_2008_1_CHES'):
+    numactors, numpolicies, thepower, thepolicy, thesalience, learningrate, thereversion, nbiggest, numdivisions = SPA_2008_1_CHES()
+
+if(case=='SWE_2006_1_CHES'):
+    numactors, numpolicies, thepower, thepolicy, thesalience, learningrate, thereversion, nbiggest, numdivisions = SWE_2006_1_CHES()
+
+if(case=='uk_2010_1_CHES'):
+    numactors, numpolicies, thepower, thepolicy, thesalience, learningrate, thereversion, nbiggest, numdivisions = uk_2010_1_CHES()
+
+player = 1
+
+if(player == 1):
+    temppow = thepower[0].copy()
+    temppol = thepolicy[0].copy()
+    tempsal = thesalience[0].copy()
     
+    thepower[0] = thepower[1]
+    thepolicy[0] = thepolicy[1]
+    thesalience[0] = thesalience[1]
     
-"""
-    thepower = np.array([31,30,24, 21, 15, 10, 10, 5, 2, 2])
+    thepower[1] = temppow
+    thepolicy[1] = temppol
+    thesalience[1] = tempsal
     
-    thepolicy = np.array([[.8545455, .3454545, .8545455, .6, .8454545],
-                              [.3454545, .3, .4545454, .55, .5181818],
-                              [.55, .47, .8100001, .625, 1],
-                              [.6090909, .5909091, .7, .575, .7],
-                              [.1272727, .3909091, .5363637, .475, .6],
-                              [.5909091, .0909091, .3818182, .34, .3363636],
-                              [.2818182, .1363636, .1545455, .45, .2636364],
-                              [.44, .6363636, .4666666, .45, .49],
-                              [.6625, .96, .65, .475, .8125],
-                              [.4166667, .28, .1625, .5, .35]])
-        
-    thepolicy = np.rint(thepolicy)
-        
-    thesalience = np.array([[.2609344, .2017893, .1426441, .1093439, .2852882],
-                                [.2640827, .1989664, .1844961, .1136951, .2387597],
-                                [.1768612, .2268438, .099965, .1153443, .3809857],
-                                [.2222222, .2222222, .1647509, .1264368, .2643678],
-                                [.3234515, .1719018, .1490058, .1085094, .2471315],
-                                [.2023121, .2365496, .1991996, .156514, .2054246],
-                                [.1973075, .2179217, .2856542, .101809, .1973075],
-                                [.1901798, .2662517, .197787, .1521439, .1936376],
-                                [.1544652, .3311916, .1431075, .1577103, .2135255],
-                                [.0973631, .2068966, .4198783, .1460446, .1298175]])
-"""
+
+numsearches = 10000
+numiter = 20
+thereversion = 0.4/numactors
+#learningrate = 0.1
     
 thepowercombo, powertest = makepowercombinations(thepower)
 thecoalition = makeallpossiblecoalitions(thepowercombo, powertest)
@@ -79,7 +100,9 @@ thepies = makepossiblepieslices(numactors, numdivisions)
 playerpies = makeplayerpies(thepies)
     
 aipiechoices, aipolchoices = find_minimal_coalitions_for_each(thecoalition, thepower, thepolicy, thepies, nbiggest, thereversion, thesalience)
-    
+
+#generate all policy strings of length (numpolicies) to give the possible policies to propose
+thepossiblepolicies = returnallpolicystrings(numpolicies)
 
 for z in range(numiter):
 
@@ -95,13 +118,10 @@ for z in range(numiter):
     
     playerpieprobs = returnflatprobability(playerpies)
     
-    #generate all policy strings of length (numpolicies) to give the possible policies to propose
-    thepossiblepolicies = returnallpolicystrings(numpolicies)
-    
     #generate a single prob vector for coalitions and (numcoalitions) prob vectors for policies
     #wait... policy probs should be based off coalition choice, no?
     #since weighting equal i'm guessing it'll converge just the same.
-    playerpolicyprobs = np.full((len(thepies), numpolicies), 1/numpolicies)
+    playerpolicyprobs = np.full((len(playerpies), len(thepossiblepolicies)), 1/len(thepossiblepolicies))
     
     ticker = 0
     
@@ -131,7 +151,9 @@ for z in range(numiter):
             convergedtoplayerprop = 1
         
         if(i%10 == 0):
-            print(i, np.max(playerpieprobs), np.argmax(playerpieprobs))
+            piemaxindex = np.argmax(playerpieprobs)
+            polmaxindex = np.argmax(playerpolicyprobs[piemaxindex])
+            print(i, np.max(playerpieprobs), piemaxindex, playerpies[piemaxindex], np.max(playerpolicyprobs), polmaxindex, thepossiblepolicies[polmaxindex])
         i+=1
         
         pieresults = 0
@@ -146,23 +168,25 @@ for z in range(numiter):
         
         aipies = np.zeros((nbiggest, numactors))
         aipolicies = np.zeros((nbiggest, numpolicies))
+        
                 
         for j in range(nbiggest):
-            choice = np.random.randint(0, len(aipiechoices))
+            
+            choice = np.random.randint(0, len(aipiechoices[j]))
             
             aipies[j] = aipiechoices[j][choice]
-            aipolicies[j] = aipolchoices[j][choice][0]
+            aipolicies[j] = aipolchoices[j][choice]
             
             for k in range(numactors):
-            
+                
                 runningsumofaichoices[j, k]+=calculatereward(thepolicy[k], thesalience[k], aipolchoices[j][choice], aipiechoices[j][choice][k]) 
         
         #do some iters of player creating their own coalition
-        for z in range(5000):
+        for z in range(numsearches):
             ticker+=1
-                    
+            
             pieresults, polresults, playerreward = playercreatespath(coalresults, pieresults, polresults, playerreward, aipies, aipolicies, playerpies, playerpieprobs, thepossiblepolicies, playerpolicyprobs, thereversion, thepolicy, thesalience, thepower)
-                    
+
             if(playerreward > bestreward):
                 bestreward = playerreward
                 bestpie = pieresults
@@ -172,9 +196,9 @@ for z in range(numiter):
         #print("total votes", votes)
         #print("player's reward", playerreward)
     
-        playerpieprobs = updateprob(playerpieprobs, learningrate, bestpie)
+        playerpieprobs = updateprob(playerpieprobs, learningrate/10, bestpie)
                                 
-        playerpolicyprobs[bestpie] = updateprob(playerpolicyprobs[bestpie], learningrate/10, bestpol)
+        playerpolicyprobs[bestpie] = updateprob(playerpolicyprobs[bestpie], learningrate, bestpol)
     
         if(np.any(playerpieprobs == 1) and pcpieconverge == -1):
                 pcpieconverge = i
@@ -210,16 +234,17 @@ for z in range(numiter):
     
     
 megalist = np.array(megalist)
+finallist = []
 for i in range(len(megalist)):
     listydo = []
     for j in range(len(megalist[i])):
         if(megalist[i][j]>0):
             listydo.append(j)
-    print(listydo)
-    
-    
-    
-    
+    finallist.append(listydo)
+unique, counts = np.unique(np.array(finallist), return_counts = True, axis = 0)
+for j in range(len(unique)):
+    print(unique[j], counts[j])
+        
     
     
     
